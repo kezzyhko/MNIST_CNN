@@ -36,6 +36,8 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[Recall
 # train the model
 # model.fit(x, pd.get_dummies(y).astype(np.float32), validation_split=0.15)
 model.fit(
-    generator.flow(x, pd.get_dummies(y).astype(np.float32)),
-    validation_data = generator.flow(x, pd.get_dummies(y).astype(np.float32), subset = 'validation')
+    generator.flow(x, pd.get_dummies(y).astype(np.float32), batch_size = 128),
+    validation_data = generator.flow(x, pd.get_dummies(y).astype(np.float32), subset = 'validation'),
+    steps_per_epoch = len(x) / 128,
+    epochs = 30
 )
