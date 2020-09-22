@@ -12,7 +12,7 @@ generator = ImageDataGenerator(
 
 model = Sequential()
 
-model.add(GaussianNoise(100, input_shape=(28, 28, 1)))
+model.add(GaussianNoise(20, input_shape=(28, 28, 1)))
 
 model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
