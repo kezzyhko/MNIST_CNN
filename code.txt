@@ -1,3 +1,13 @@
+generator = ImageDataGenerator(
+    rotation_range = 15,
+    width_shift_range = 0.3,
+    height_shift_range = 0.1,
+    zoom_range = 0.1,
+    validation_split = 0.15
+)
+
+
+
 # create the model
 
 model = Sequential()
@@ -18,3 +28,12 @@ model.add(Dense(512, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[Recall(), Precision()])
+
+
+
+# train the model
+# model.fit(x, pd.get_dummies(y).astype(np.float32), validation_split=0.15)
+model.fit(
+    generator.flow(x, pd.get_dummies(y).astype(np.float32)),
+    validation_data = generator.flow(x, pd.get_dummies(y).astype(np.float32), subset = 'validation')
+)
