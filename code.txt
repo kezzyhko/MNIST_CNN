@@ -12,7 +12,7 @@ generator = ImageDataGenerator(
 
 model = Sequential()
 
-model.add(GaussianNoise(0.2))
+model.add(GaussianNoise(100, input_shape=(28, 28, 1)))
 
 model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
@@ -36,8 +36,6 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=[Recall
 # train the model
 # model.fit(x, pd.get_dummies(y).astype(np.float32), validation_split=0.15)
 model.fit(
-    generator.flow(x, pd.get_dummies(y).astype(np.float32), batch_size = 128),
+    generator.flow(x, pd.get_dummies(y).astype(np.float32)),
     validation_data = generator.flow(x, pd.get_dummies(y).astype(np.float32), subset = 'validation'),
-    steps_per_epoch = len(x) / 128,
-    epochs = 30
 )
