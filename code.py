@@ -6,6 +6,7 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2
 from tensorflow.keras.metrics import Recall, Precision
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.utils import to_categorical
 import tensorflow as tf
 import zipfile
 from sklearn.metrics import f1_score
@@ -66,17 +67,17 @@ model.add(Dense(512, activation='relu'))
 model.add(Dense(512, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
-model.compile(optimizer=SGD(lr=0.01), loss='categorical_crossentropy', metrics=[Recall(), Precision()])
+model.compile(optimizer=SGD(lr=0.01, momentum=0.9), loss='categorical_crossentropy', metrics=[Recall(), Precision()])
 
 
 
 # train the model
 
-# model.fit(x, pd.get_dummies(y).astype(np.float32), validation_split=0.15)
+# model.fit(x, to_categorical(y), validation_split=0.15)
 
 model.fit(
-    generator.flow(x, pd.get_dummies(y).astype(np.float32), batch_size = 128),
-    validation_data = generator.flow(x, pd.get_dummies(y).astype(np.float32), subset = 'validation'),
+    generator.flow(x, to_categorical(y), batch_size = 128),
+    validation_data = generator.flow(x, to_categorical(y), batch_size = 128, subset = 'validation'),
     steps_per_epoch = len(x) / 128,
     epochs = 10
 )
