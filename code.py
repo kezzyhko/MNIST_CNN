@@ -57,10 +57,10 @@ model.add(Conv2D(filters=256, kernel_size=(3,3), activation='relu', padding='sam
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
 
 model.add(Flatten())
-model.add(Dense(1024, activation='relu'))
+model.add(Dense(4096, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(512, activation='relu'))
+model.add(Dense(1024, activation='relu'))
+model.add(Dense(1024, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(10, activation='softmax'))
 
