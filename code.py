@@ -17,8 +17,12 @@ import matplotlib.pyplot as plt
 
 # load the dataset
 
-x = np.load('x.npy')
-y = np.load('y.npy')
+(mnist_X_train, mnist_y_train), (mnist_X_test, mnist_y_test) = tf.keras.datasets.mnist.load_data()
+mnist_X_train = mnist_X_train.reshape((60000, 28, 28, 1))
+mnist_X_test = mnist_X_test.reshape((10000, 28, 28, 1))
+
+x = np.concatenate((mnist_X_train, mnist_X_test), axis=0)
+y = np.concatenate((mnist_y_train, mnist_y_test), axis=0)
 
 print(x.shape)
 print(y.shape)
@@ -82,9 +86,10 @@ model.fit(
 
 
 # save the model
-
 model.save('model.h5')
 zipfile.ZipFile('model.h5.zip', mode='w').write("model.h5")
+print(os.path.getsize("/content/model.h5.zip") / (1024*1024))
+files.download('model.h5.zip') 
 
 
 
