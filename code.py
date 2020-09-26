@@ -46,25 +46,22 @@ generator = ImageDataGenerator(
 
 model = Sequential()
 
-model.add(Conv2D(filters=128, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
+model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
 model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
 
-model.add(Conv2D(filters=256, kernel_size=(3,3), activation='relu', padding='same'))
+model.add(Conv2D(filters=128, kernel_size=(3,3), activation='relu', padding='same'))
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
 
-model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu', padding='same'))
+model.add(Conv2D(filters=258, kernel_size=(3,3), activation='relu', padding='same'))
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2, padding='same'))
 
 model.add(Flatten())
 model.add(Dense(4096, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.4))
 model.add(Dense(1024, activation='relu'))
 model.add(Dense(1024, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.3))
 model.add(Dense(512, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(10, activation='softmax'))
@@ -81,7 +78,7 @@ model.fit(
     generator.flow(x, to_categorical(y), batch_size = 128),
     validation_data = generator.flow(x, to_categorical(y), batch_size = 128, subset = 'validation'),
     steps_per_epoch = len(x) / 128,
-    epochs = 500
+    epochs = 10
 )
 
 
