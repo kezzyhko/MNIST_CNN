@@ -47,7 +47,7 @@ generator = ImageDataGenerator(
 )
 
 model = Sequential()
-model.add(GaussianNoise(70, input_shape=(28, 28, 1)))
+model.add(GaussianNoise(150, input_shape=(28, 28, 1)))
 
 
 
