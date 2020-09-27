@@ -31,8 +31,7 @@ print(y.shape)
 
 # data augmentation
 
-# plt.imshow(x[0].reshape(28, 28)/255., cmap='Greys')
-g = GaussianNoise(40)
+g = GaussianNoise(70)
 x = g(x.astype('float32'), training=True)
 plt.imshow(tf.reshape(x[0], (28, 28))/255., cmap='Greys')
 
