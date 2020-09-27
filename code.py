@@ -31,13 +31,17 @@ print(y.shape)
 
 # data augmentation
 
+# plt.imshow(x[0].reshape(28, 28)/255., cmap='Greys')
+g = GaussianNoise(70)
+x = g(x.astype('float32'), training=True)
+plt.imshow(tf.reshape(x[0], (28, 28))/255., cmap='Greys')
+
 generator = ImageDataGenerator(
     rotation_range = 20,
     width_shift_range = 0.2,
     height_shift_range = 0.1,
-    zoom_range = 0.1,
+    zoom_range = (0.9, 2),
     shear_range = 10,
-    brightness_range = (0.5, 1),
     fill_mode = 'nearest',
     validation_split = 0.15
 )
@@ -56,12 +60,10 @@ model.add(MaxPooling2D(pool_size=(2,2), strides = 2))
 model.add(Conv2D(filters=128, kernel_size=(3,3), activation='relu', padding='same'))
 
 model.add(Conv2D(filters=256, kernel_size=(3,3), activation='relu', padding='same'))
-model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2))
 
 model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu'))
 model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu'))
-model.add(BatchNormalization())
 
 model.add(Flatten())
 model.add(Dense(1024, activation='relu'))
