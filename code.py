@@ -36,13 +36,12 @@ x = g(x.astype('float32'), training=True)
 plt.imshow(tf.reshape(x[0], (28, 28))/255., cmap='Greys')
 
 generator = ImageDataGenerator(
-    rotation_range = 40,
-    width_shift_range = 0.3,
+    rotation_range = 20,
+    width_shift_range = 0.2,
     height_shift_range = 0.1,
-    zoom_range = 0.2,
-    sheer_range = 15,
+    zoom_range = 0.1,
+    shear_range = 10,
     brightness_range = (0.5, 1),
-    zca_whitening = True,
     fill_mode = 'nearest',
     validation_split = 0.15
 )
