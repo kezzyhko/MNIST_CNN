@@ -31,10 +31,6 @@ print(y.shape)
 
 # data augmentation
 
-g = GaussianNoise(70)
-x = g(x.astype('float32'), training=True)
-plt.imshow(tf.reshape(x[0], (28, 28))/255., cmap='Greys')
-
 generator = ImageDataGenerator(
     rotation_range = 20,
     width_shift_range = 0.2,
@@ -46,11 +42,12 @@ generator = ImageDataGenerator(
     validation_split = 0.15
 )
 
+model = Sequential()
+model.add(GaussianNoise(70, input_shape=(28, 28, 1)))
+
 
 
 # create the model
-
-model = Sequential()
 
 model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
 model.add(BatchNormalization())
