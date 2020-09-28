@@ -46,12 +46,11 @@ generator = ImageDataGenerator(
     validation_split = 0.15
 )
 
-model = Sequential()
-model.add(GaussianNoise(150, input_shape=(28, 28, 1)))
-
 
 
 # create the model
+
+model = Sequential()
 
 model.add(Conv2D(filters=64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(28, 28, 1)))
 model.add(BatchNormalization())
@@ -71,7 +70,7 @@ model.add(Dense(512, activation='relu'))
 model.add(Dense(512, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
-model.compile(optimizer=SGD(lr=0.01, momentum=0.9), loss='categorical_crossentropy', metrics=[Recall(), Precision()])
+model.compile(optimizer=SGD(lr=0.1, momentum=0.9), loss='categorical_crossentropy', metrics=[Recall(), Precision()])
 
 
 
@@ -83,7 +82,7 @@ model.fit(
     generator.flow(x, to_categorical(y), batch_size = 128),
     validation_data = generator.flow(x, to_categorical(y), batch_size = 128, subset = 'validation'),
     steps_per_epoch = len(x) / 128,
-    epochs = 10
+    epochs = 15
 )
 
 
