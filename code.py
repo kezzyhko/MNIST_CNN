@@ -78,7 +78,7 @@ model.fit(
     generator.flow(x, to_categorical(y), batch_size = 128),
     validation_data = generator.flow(x, to_categorical(y), batch_size = 128, subset = 'validation'),
     steps_per_epoch = len(x) / 128,
-    epochs = 15
+    epochs = 250
 )
 
 
