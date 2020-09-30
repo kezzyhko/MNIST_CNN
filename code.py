@@ -63,6 +63,7 @@ model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu'))
 
 model.add(Flatten())
 model.add(Dense(1024, activation='relu'))
+model.add(Dropout(0.2))
 model.add(Dense(512, activation='relu'))
 model.add(Dense(512, activation='relu'))
 model.add(Dense(10, activation='softmax'))
