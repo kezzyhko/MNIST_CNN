@@ -59,7 +59,6 @@ model.add(BatchNormalization())
 model.add(MaxPooling2D(pool_size=(2,2), strides = 2))
 
 model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu'))
-model.add(Conv2D(filters=512, kernel_size=(3,3), activation='relu'))
 
 model.add(Flatten())
 model.add(Dense(1024, activation='relu'))
